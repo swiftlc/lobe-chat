@@ -14,13 +14,12 @@ import { RouteVariants } from '@/utils/server/routeVariants';
 
 const inVercel = process.env.VERCEL === '1';
 
-type RootLayoutProps = {
+interface RootLayoutProps {
   children: ReactNode;
-  modal: ReactNode;
   params: Promise<{ variants: string }>;
-};
+}
 
-const RootLayout = async ({ children, modal, params }: RootLayoutProps) => {
+const RootLayout = async ({ children, params }: RootLayoutProps) => {
   const { variants } = await params;
 
   const { locale, isMobile, theme } = RouteVariants.deserializeVariants(variants);
@@ -34,7 +33,6 @@ const RootLayout = async ({ children, modal, params }: RootLayoutProps) => {
           <AuthProvider>
             <Suspense fallback={<BrandTextLoading />}>
               {children}
-              {!isMobile && modal}
             </Suspense>
           </AuthProvider>
           <PWAInstall />

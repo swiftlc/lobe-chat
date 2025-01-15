@@ -1,3 +1,4 @@
+import { withSuspense } from '@/components/withSuspense';
 import { isServerMode } from '@/const/version';
 
 import Client from './Client';
@@ -7,4 +8,4 @@ const ScreenLoading = () => (isServerMode ? <Server /> : <Client />);
 
 ScreenLoading.displayName = 'ScreenLoading';
 
-export default ScreenLoading;
+export default withSuspense(ScreenLoading);

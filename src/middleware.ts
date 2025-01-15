@@ -46,7 +46,6 @@ const defaultMiddleware = (request: NextRequest) => {
   if (['/api', '/trpc', '/webapi'].some((path) => url.pathname.startsWith(path)))
     return NextResponse.next();
 
-  console.log('nextUrl:', request.nextUrl);
   console.log('origin', url.pathname, 'rewrite route:', route);
   // 3. 处理 URL 重写
   // 构建新路径: /${route}${originalPathname}

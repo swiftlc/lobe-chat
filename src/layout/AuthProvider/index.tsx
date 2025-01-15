@@ -5,6 +5,7 @@ import { authEnv } from '@/config/auth';
 import Clerk from './Clerk';
 import NextAuth from './NextAuth';
 import NoAuth from './NoAuth';
+import {withSuspense} from "@/components/withSuspense";
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   if (authEnv.NEXT_PUBLIC_ENABLE_CLERK_AUTH) return <Clerk>{children}</Clerk>;
@@ -14,4 +15,4 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   return <NoAuth>{children}</NoAuth>;
 };
 
-export default AuthProvider;
+export default withSuspense(AuthProvider);

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 import { appEnv } from '@/config/app';
 import { getServerFeatureFlagsValue } from '@/config/featureFlags';
@@ -58,10 +58,12 @@ const GlobalLayout = async ({
             serverConfig={serverConfig}
           >
             <QueryProvider>{children}</QueryProvider>
-            <StoreInitialization />
+            <Suspense>
+              <StoreInitialization />
+              <Debug />
+              <DebugUI />
+            </Suspense>
           </ServerConfigStoreProvider>
-          <DebugUI />
-          <Debug />
         </AppTheme>
         <AntdV5MonkeyPatch />
       </Locale>
