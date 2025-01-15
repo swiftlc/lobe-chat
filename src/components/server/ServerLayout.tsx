@@ -1,17 +1,26 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, ReactNode } from 'react';
 
-import { isMobileDevice } from '@/utils/server/responsive';
+import { RouteVariants } from '@/utils/server/routeVariants';
 
 interface ServerLayoutProps<T> {
   Desktop: FC<T>;
   Mobile: FC<T>;
 }
 
+interface ServerLayoutInnerProps {
+  children: ReactNode;
+  params: Promise<{ variants: string }>;
+}
+
 const ServerLayout =
   <T extends PropsWithChildren>({ Desktop, Mobile }: ServerLayoutProps<T>): FC<T> =>
-  async (props: T) => {
-    const mobile = await isMobileDevice();
-    return mobile ? <Mobile {...props} /> : <Desktop {...props} />;
+  // @ts-expect-error
+  async (props: ServerLayoutInnerProps) => {
+    const { params, ...res } = props;
+    const { variants } = (await params) || {};
+
+    const { isMobile } = RouteVariants.deserializeVariants(variants);
+    return isMobile ? <Mobile {...(res as T)} /> : <Desktop {...(res as T)} />;
   };
 
 ServerLayout.displayName = 'ServerLayout';

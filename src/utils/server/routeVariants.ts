@@ -3,6 +3,7 @@ import { ThemeAppearance } from 'antd-style/lib/types/appearance';
 
 import { DEFAULT_LANG } from '@/const/locale';
 import { locales } from '@/locales/resources';
+import { DynamicLayoutProps } from '@/types/next';
 
 // 定义变体接口
 export interface IRouteVariants {
@@ -44,6 +45,12 @@ export class RouteVariants {
       // 解析失败时返回默认值
       return { ...DEFAULT_VARIANTS };
     }
+  };
+
+  static getIsMobile = async (props: DynamicLayoutProps) => {
+    const { variants } = await props.params;
+    const { isMobile } = RouteVariants.deserializeVariants(variants);
+    return isMobile;
   };
 
   // 工具函数：创建变体

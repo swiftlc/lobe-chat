@@ -10,6 +10,7 @@ import { DEFAULT_LANG } from '@/const/locale';
 import PWAInstall from '@/features/PWAInstall';
 import AuthProvider from '@/layout/AuthProvider';
 import GlobalProvider from '@/layout/GlobalProvider';
+import { DynamicLayoutProps } from '@/types/next';
 import { RouteVariants } from '@/utils/server/routeVariants';
 
 const inVercel = process.env.VERCEL === '1';
@@ -31,9 +32,7 @@ const RootLayout = async ({ children, params }: RootLayoutProps) => {
       <body>
         <GlobalProvider appearance={theme} isMobile={isMobile} locale={locale}>
           <AuthProvider>
-            <Suspense fallback={<BrandTextLoading />}>
-              {children}
-            </Suspense>
+            <Suspense fallback={<BrandTextLoading />}>{children}</Suspense>
           </AuthProvider>
           <PWAInstall />
         </GlobalProvider>
@@ -48,9 +47,7 @@ export default RootLayout;
 
 export { generateMetadata } from './metadata';
 
-export const generateViewport = async (props: {
-  params: Promise<{ variants: string }>;
-}): ResolvingViewport => {
+export const generateViewport = async (props: DynamicLayoutProps): ResolvingViewport => {
   const { variants } = await props.params;
   const { isMobile } = RouteVariants.deserializeVariants(variants);
 
