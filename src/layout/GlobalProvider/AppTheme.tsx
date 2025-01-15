@@ -138,7 +138,6 @@ const AppTheme = memo<AppThemeProps>(
         themeMode={themeMode}
       >
         {!!customFontURL && <FontLoader url={customFontURL} />}
-        <GlobalStyle />
         <AntdStaticMethods />
         <ConfigProvider
           config={{
@@ -149,6 +148,7 @@ const AppTheme = memo<AppThemeProps>(
           }}
         >
           {children}
+          <GlobalStyle />
         </ConfigProvider>
       </ThemeProvider>
     );

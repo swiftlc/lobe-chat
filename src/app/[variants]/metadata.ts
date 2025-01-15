@@ -5,7 +5,6 @@ import { BRANDING_LOGO_URL, BRANDING_NAME, ORG_NAME } from '@/const/branding';
 import { DEFAULT_LANG } from '@/const/locale';
 import { OFFICIAL_URL, OG_URL } from '@/const/url';
 import { isCustomBranding, isCustomORG } from '@/const/version';
-import { translation } from '@/server/translation';
 
 const BASE_PATH = appEnv.NEXT_PUBLIC_BASE_PATH;
 
@@ -13,8 +12,8 @@ const BASE_PATH = appEnv.NEXT_PUBLIC_BASE_PATH;
 const noManifest = !!BASE_PATH;
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const { t } = await translation('metadata');
-
+  const description = `${BRANDING_NAME} brings you the best UI experience for ChatGPT, Claude, Gemini, and OLLaMA.`;
+  const title = `Welcome to ${BRANDING_NAME}: Your personal AI productivity tool for a smarter brain.`;
   return {
     alternates: {
       canonical: OFFICIAL_URL,
@@ -23,7 +22,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       statusBarStyle: 'black-translucent',
       title: BRANDING_NAME,
     },
-    description: t('chat.description', { appName: BRANDING_NAME }),
+    description,
     icons: isCustomBranding
       ? BRANDING_LOGO_URL
       : {
@@ -34,10 +33,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
     manifest: noManifest ? undefined : '/manifest.json',
     metadataBase: new URL(OFFICIAL_URL),
     openGraph: {
-      description: t('chat.description', { appName: BRANDING_NAME }),
+      description,
       images: [
         {
-          alt: t('chat.title', { appName: BRANDING_NAME }),
+          alt: title,
           height: 640,
           url: OG_URL,
           width: 1200,
@@ -50,15 +49,15 @@ export const generateMetadata = async (): Promise<Metadata> => {
       url: OFFICIAL_URL,
     },
     title: {
-      default: t('chat.title', { appName: BRANDING_NAME }),
+      default: title,
       template: `%s · ${BRANDING_NAME}`,
     },
     twitter: {
       card: 'summary_large_image',
-      description: t('chat.description', { appName: BRANDING_NAME }),
+      description,
       images: [OG_URL],
       site: isCustomORG ? `@${ORG_NAME}` : '@lobehub',
-      title: t('chat.title', { appName: BRANDING_NAME }),
+      title: title,
     },
   };
 };
