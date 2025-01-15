@@ -1,5 +1,11 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
-export default dynamic(() => import('./AuthErrorPage'));
+import Page from './AuthErrorPage';
+
+export default () => (
+  <Suspense>
+    <Page />
+  </Suspense>
+);
