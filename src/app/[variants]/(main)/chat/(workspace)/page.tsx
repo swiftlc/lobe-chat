@@ -50,5 +50,3 @@ const Page = async (props: DynamicLayoutProps) => {
 Page.displayName = 'Chat';
 
 export default Page;
-
-export const dynamic = 'force-static';
