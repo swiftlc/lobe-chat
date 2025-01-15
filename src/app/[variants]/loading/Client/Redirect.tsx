@@ -1,6 +1,6 @@
 'use client';
 
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { memo, useEffect } from 'react';
 
 import { useGlobalStore } from '@/store/global';
@@ -14,14 +14,14 @@ interface RedirectProps {
 }
 
 const Redirect = memo<RedirectProps>(({ setActiveStage }) => {
-  // const router = useRouter();
+  const router = useRouter();
   const isUserStateInit = useUserStore((s) => s.isUserStateInit);
 
   const isPgliteNotEnabled = useGlobalStore(systemStatusSelectors.isPgliteNotEnabled);
 
   const navToChat = () => {
     setActiveStage(AppLoadingStage.GoToChat);
-    // router.replace('/chat');
+    router.replace('/chat');
   };
 
   useEffect(() => {

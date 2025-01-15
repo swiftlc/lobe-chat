@@ -21,7 +21,7 @@ export const DEFAULT_VARIANTS: IRouteVariants = {
   theme: 'light',
 };
 
-const SPLITTER = '__';
+const SPLITTER = '··';
 
 export class RouteVariants {
   static serializeVariants = (variants: IRouteVariants): string => {
