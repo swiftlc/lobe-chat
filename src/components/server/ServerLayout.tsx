@@ -16,8 +16,15 @@ const ServerLayout =
   <T extends PropsWithChildren>({ Desktop, Mobile }: ServerLayoutProps<T>): FC<T> =>
   // @ts-expect-error
   async (props: ServerLayoutInnerProps) => {
-    const { params, ...res } = props;
-    const { variants } = (await params) || {};
+    const { params: paramsPromise, ...res } = props;
+
+    if (!paramsPromise) {
+      throw new Error(
+        `paramsPromise is required for ServerLayout, please pass params props to ServerLayout`,
+      );
+    }
+
+    const { variants } = await paramsPromise;
 
     const { isMobile } = RouteVariants.deserializeVariants(variants);
     return isMobile ? <Mobile {...(res as T)} /> : <Desktop {...(res as T)} />;
