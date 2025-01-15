@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren, ReactNode } from 'react';
 
+import { DynamicLayoutProps } from '@/types/next';
 import { RouteVariants } from '@/utils/server/routeVariants';
 
 interface ServerLayoutProps<T> {
@@ -7,9 +8,8 @@ interface ServerLayoutProps<T> {
   Mobile: FC<T>;
 }
 
-interface ServerLayoutInnerProps {
+interface ServerLayoutInnerProps extends DynamicLayoutProps {
   children: ReactNode;
-  params: Promise<{ variants: string }>;
 }
 
 const ServerLayout =
