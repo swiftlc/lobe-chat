@@ -124,6 +124,7 @@ export class LobeGoogleAI implements LobeRuntimeAI {
     } catch (e) {
       const err = e as Error;
 
+      console.log(err);
       const { errorType, error } = this.parseErrorMessage(err.message);
 
       throw AgentRuntimeError.chat({ error, errorType, provider: ModelProvider.Google });
