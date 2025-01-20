@@ -18,6 +18,8 @@ export const POST = async (req: Request) =>
 
       const googleAuthOptions = credentialsContent ? safeParseJSON(credentialsContent) : undefined;
 
+      console.log('credentialsContent', typeof googleAuthOptions, googleAuthOptions);
+
       const instance = LobeVertexAI.initFromVertexAI({
         googleAuthOptions: googleAuthOptions,
         location: process.env.VERTEXAI_LOCATION,
