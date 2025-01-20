@@ -1,6 +1,3 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
-
 import { AgentRuntime, ModelProvider } from '@/libs/agent-runtime';
 import { LobeVertexAI } from '@/libs/agent-runtime/vertexai';
 import { safeParseJSON } from '@/utils/safeParseJSON';
@@ -10,13 +7,9 @@ import { POST as UniverseRoute } from '../[provider]/route';
 export const POST = async (req: Request) =>
   UniverseRoute(req, {
     createRuntime: () => {
-      const credentialsContent =
-        process.env.VERTEXAI_CREDENTIALS ??
-        (process.env.GOOGLE_APPLICATION_CREDENTIALS
-          ? readFileSync(resolve(process.cwd(), process.env.GOOGLE_APPLICATION_CREDENTIALS), 'utf8')
-          : undefined);
+      const credentialsContent = process.env.VERTEXAI_CREDENTIALS ?? undefined;
 
-      const googleAuthOptions = credentialsContent ? safeParseJSON(credentialsContent) : undefined;
+      const googleAuthOptions = credentialsContent ? safeParseJSON(credentialsContent) : {};
 
       const instance = LobeVertexAI.initFromVertexAI({
         googleAuthOptions: googleAuthOptions,
