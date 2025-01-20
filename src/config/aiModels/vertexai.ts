@@ -9,7 +9,7 @@ const vertexaiChatModels: AIChatModelCard[] = [
       'Gemini 1.5 Flash 是Google最新的多模态AI模型，具备快速处理能力，支持文本、图像和视频输入，适用于多种任务的高效扩展。',
     displayName: 'Gemini 1.5 Flash',
     enabled: true,
-    id: 'gemini-1.5-flash-latest',
+    id: 'gemini-1.5-flash',
     maxOutput: 8192,
     pricing: {
       cachedInput: 0.018_75,

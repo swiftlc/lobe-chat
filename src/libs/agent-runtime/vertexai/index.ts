@@ -7,7 +7,7 @@ export class LobeVertexAI extends LobeGoogleAI {
     try {
       const client = new VertexAI({ ...params });
 
-      return new LobeGoogleAI({ apiKey: 'avoid-error', client });
+      return new LobeGoogleAI({ apiKey: 'avoid-error', client, isVertexAi: true });
     } catch (e) {
       const err = e as Error;
 
