@@ -12,13 +12,11 @@ export const POST = async (req: Request) =>
     createRuntime: () => {
       const credentialsContent =
         process.env.VERTEXAI_CREDENTIALS ??
-        (process.env.VERTEXAI_CREDENTIALS_PATH
-          ? readFileSync(resolve(process.cwd(), process.env.VERTEXAI_CREDENTIALS_PATH), 'utf8')
+        (process.env.GOOGLE_APPLICATION_CREDENTIALS
+          ? readFileSync(resolve(process.cwd(), process.env.GOOGLE_APPLICATION_CREDENTIALS), 'utf8')
           : undefined);
 
       const googleAuthOptions = credentialsContent ? safeParseJSON(credentialsContent) : undefined;
-
-      console.log('credentialsContent', typeof googleAuthOptions, googleAuthOptions);
 
       const instance = LobeVertexAI.initFromVertexAI({
         googleAuthOptions: googleAuthOptions,
